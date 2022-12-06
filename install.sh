@@ -40,10 +40,10 @@ RUWFS_DIR="$HOME/.ruwfs"
 
 if [ ! -d "$RUWFS_DIR" ]; then
     echo "Creating directory $RUWFS_DIR"
-    mkdir -p ${RUWFS_DIR}
-    mkdir -p ${RUWFS_DIR}/images/archive
-    mkdir -p ${RUWFS_DIR}/tmp
-    touch ${RUWFS_DIR}/tmp/install.log
+    mkdir -p "${RUWFS_DIR}"
+    mkdir -p "${RUWFS_DIR}/images/archive"
+    mkdir -p "${RUWFS_DIR}/tmp"
+    touch "${RUWFS_DIR}/tmp/install.log"
 fi
 
 command_exists sway || { echo "Sway is not installed. Please install Sway before running this script."; exit 1;}
