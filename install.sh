@@ -52,7 +52,7 @@ command_exists pip3 || { echo "pip3 is not installed"; exit 1;}
 command_exists python3 || { echo "python3 is not installed"; exit 1;}
 
 
-git clone https://github.com/nero-dv/ruwfs "${RUWFS_DIR}" && cd "${RUWFS_DIR}
+git clone https://github.com/nero-dv/ruwfs "${RUWFS_DIR}" && cd "${RUWFS_DIR}"
 chown -R $USER:$USER $RUWFS_DIR
 
 if [ -f $HOME/.config/sway/config ]; then
