@@ -2,8 +2,6 @@
 
 RUWFS (Random Unsplash Wallpapers for Sway) is a simple program to download, set, and archive wallpapers from Unsplash for your Sway-enabled desktop. 
 
-<br>
-
 # Description
 
 This program is a simple script to download, set, and archive wallpapers from Unsplash for your sway desktop. It is written in Python and does not use the Unsplash API to download images <sup>1</sup>. It is designed to be used with sway; RUWFS cannot currently can be used with any other desktop environment that supports setting wallpapers unless that method is by using swaybg. The program is designed to be run as a systemd service, but can be run manually as well <sup>2</sup>.
@@ -11,7 +9,6 @@ This program is a simple script to download, set, and archive wallpapers from Un
 ##### <sup>1</sup> The Unsplash API is rate limited and requires an API key. This program does not use the API and instead uses the Unsplash website to download images. This means that the program is not rate limited and does not require an API key, but it also means that the program is not guaranteed to work in the future if Unsplash changes their website. There is a chance that you may be blocked from downloading images from Unsplash if you run the program manually too many times.
 
 ##### <sup>2</sup> The program can be run manually, but it is not recommended. The program is designed to be run as a systemd service <sup><i>[TODO].</i></sup> You should use the provided systemd service file to run the program as a service. 
-<br><br>
 
 # Getting Started
 
