@@ -5,27 +5,13 @@ import json
 import time
 import random
 
-# RUWFS (Random Unsplash Wallpapers for Sway) is a simple program to download, set, and archive wallpapers from Unsplash for your Sway-enabled desktop.
-
-# Copyright (C) 2022  Louis Del Valle - louis[at]louisdelvalle.com
-
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 
 def main():
-    # Get yesterday's date for archive
-    # yday = time.strftime("%Y-%m-%d", time.localtime(time.time() - 86400))
+    data_dir = os.environ["HOME"] + ".RUWFS"
+    tmp_dir = data_dir + "/tmp"
+    image_dir = data_dir + "/images"
+    archive_dir = image_dir + "/archive"
+
     # Get today's date and time for current images
     def today():
         return time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime(time.time()))
@@ -60,21 +46,21 @@ def main():
     ]
 
     # Get the current working directory
-    cwd = os.getcwd()
-    obuffer = f"{cwd}/tmp/outputs.json"
-    files = os.listdir(f"{cwd}/images")
+    # cwd = os.getcwd()
+    obuffer = f"{tmp_dir}/outputs.json"
+    files = os.listdir(f"{image_dir}")
 
     # Move all current images to the archive folder
     for idx, file in enumerate(files):
         if file.endswith(".jpg"):
-            subprocess.run(["mv", f"{cwd}/images/{file}", f"{cwd}/archive/{file}"])
+            subprocess.run(["mv", f"{image_dir}/{file}", f"{archive_dir}/{file}"])
 
     try:
         with open(obuffer, "r") as f:
             outputs = json.load(f)
         for idx, item in enumerate(outputs):
             random_topic = random.choice(topics)
-            image_path = f"{cwd}/images/{today()}_{random_topic}_{idx}.jpg"
+            image_path = f"{image_dir}/{today()}_{random_topic}_{idx}.jpg"
             # print(f"Setting image {image_path} as wallpaper for {output_string}")
             response = requests.get(
                 f"https://source.unsplash.com/2560x1440/?{random_topic}"
@@ -84,12 +70,13 @@ def main():
             subprocess.call(
                 ["swaymsg", "output", item["name"], "bg", image_path, "fill"]
             )
-            # time.sleep(2)
+        # time.sleep(86400)
+        # main()
 
     except FileNotFoundError:
         subprocess.call(
             ["swaymsg", "-t", "get_outputs", "-r"],
-            stdout=open(f"{cwd}/tmp/outputs.json", "w"),
+            stdout=open(f"{tmp_dir}/outputs.json", "w"),
             stderr=print(
                 "Error trying to get outputs from swaymsg. Is swaymsg installed?"
             ),

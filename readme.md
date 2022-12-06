@@ -14,11 +14,11 @@ This program is a simple script to download, set, and archive wallpapers from Un
 
 ## Dependencies
 
-<a href=https://swaywm.org/>Sway</a> is a tiling Wayland compositor and a drop-in replacement for the i3 window manager for X11. It works with your existing i3 configuration and supports most of i3's features, plus a few extras. 
+<a href=https://swaywm.org/>Sway</a>: A tiling Wayland compositor and a drop-in replacement for the i3 window manager for X11. It works with your existing i3 configuration and supports most of i3's features, plus a few extras. 
 
-Python 3.6 or higher is recommended to run this program. The program also requires the following Python module:
+Python 3.7 or higher is needed to run this program. The program requires the following Python module:
 
-<a href=https://requests.readthedocs.io/en/latest/>Requests</a> is a simple, yet elegant HTTP library. It provides methods for accessing Web resources via HTTP. It is an Apache2 Licensed HTTP library, written in Python.
+<a href=https://requests.readthedocs.io/en/latest/>Requests >= 2.28.0</a>: A simple, yet elegant HTTP library. It provides methods for accessing Web resources via HTTP. It is an Apache2 Licensed HTTP library, written in Python.
 
 To install the Requests library, simply run this simple command in your terminal and virtualenv of choice:
 
