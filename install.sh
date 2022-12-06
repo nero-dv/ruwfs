@@ -57,7 +57,7 @@ chown -R $USER:$USER $RUWFS_DIR
 
 if [ -f $HOME/.config/sway/config ]; then
     sed -i '/output \* bg/d' $HOME/.config/sway/config
-    echo "exec_always --no-startup-id python ~/.ruwfs/ruwfs.py" >> $HOME/.config/sway/config
+    echo "exec_always --no-startup-id python ~/.ruwfs/src/ruwfs.py" >> $HOME/.config/sway/config
 fi
 
 

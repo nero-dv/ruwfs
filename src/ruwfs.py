@@ -7,7 +7,7 @@ import random
 
 
 def main():
-    data_dir = os.environ["HOME"] + ".RUWFS"
+    data_dir = os.environ["HOME"] + ".ruwfs"
     tmp_dir = data_dir + "/tmp"
     image_dir = data_dir + "/images"
     archive_dir = image_dir + "/archive"
