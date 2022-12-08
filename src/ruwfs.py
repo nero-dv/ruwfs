@@ -4,13 +4,26 @@ import requests
 import json
 import time
 import random
+from pathlib import Path
 
 
 def main():
-    data_dir = os.environ["HOME"] + ".ruwfs"
-    tmp_dir = data_dir + "/tmp"
-    image_dir = data_dir + "/images"
-    archive_dir = image_dir + "/archive"
+    home = Path.home() / ".ruwfs"
+    image_dir = home / "images"
+    archive_dir = image_dir / "archive"
+    tmp_dir = home / "tmp"
+    obuffer = tmp_dir / "outputs.json"
+    paths = [home, image_dir, archive_dir, tmp_dir]
+    output_list = []
+
+    # Create the directories if they don't exist
+    for path in paths:
+        if not path.exists():
+            path.mkdir(parents=True)
+
+    # Move all current images to the archive folder
+    for file in image_dir.glob("*.jpg"):
+        file.rename(archive_dir / file.name)
 
     # Get today's date and time for current images
     def today():
@@ -45,23 +58,14 @@ def main():
         "history",
     ]
 
-    # Get the current working directory
-    # cwd = os.getcwd()
-    obuffer = f"{tmp_dir}/outputs.json"
-    files = os.listdir(f"{image_dir}")
-
-    # Move all current images to the archive folder
-    for idx, file in enumerate(files):
-        if file.endswith(".jpg"):
-            subprocess.run(["mv", f"{image_dir}/{file}", f"{archive_dir}/{file}"])
-
     try:
         with open(obuffer, "r") as f:
             outputs = json.load(f)
-        for idx, item in enumerate(outputs):
+        for i in range(len(outputs)):
+            output_list.append(outputs[i]["name"])
+        for idx, item in enumerate(output_list):
             random_topic = random.choice(topics)
             image_path = f"{image_dir}/{today()}_{random_topic}_{idx}.jpg"
-            # print(f"Setting image {image_path} as wallpaper for {output_string}")
             response = requests.get(
                 f"https://source.unsplash.com/2560x1440/?{random_topic}"
             )
@@ -70,13 +74,13 @@ def main():
             subprocess.call(
                 ["swaymsg", "output", item["name"], "bg", image_path, "fill"]
             )
-        # time.sleep(86400)
-        # main()
+        time.sleep(30 + random.randint(0, 30))
+        main()
 
     except FileNotFoundError:
         subprocess.call(
             ["swaymsg", "-t", "get_outputs", "-r"],
-            stdout=open(f"{tmp_dir}/outputs.json", "w"),
+            stdout=open(obuffer, "w"),
             stderr=print(
                 "Error trying to get outputs from swaymsg. Is swaymsg installed?"
             ),
