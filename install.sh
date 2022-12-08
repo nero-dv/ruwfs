@@ -39,7 +39,7 @@ if [ -f $HOME/.config/sway/config ]; then
     sed -i '/output \* bg/d' $HOME/.config/sway/config
     mkdir -p $HOME/.config/sway/backgrounds
     echo "include $HOME/.config/sway/backgrounds/*.conf" >> $HOME/.config/sway/config
-    echo "exec_always --no-startup-id python ~/.ruwfs/src/ruwfs.py" >> $HOME/.config/sway/config/backgrounds/ruwfs.conf
+    echo "exec_always --no-startup-id python ~/.ruwfs/src/ruwfs.py" >> $HOME/.config/sway/backgrounds/ruwfs.conf
     echo
     echo "Background configuration added to Sway config file."
     echo "Reload your config file to start using RUWFS."
