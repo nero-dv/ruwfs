@@ -73,20 +73,20 @@ def main():
             print("Creating obuffer file")
             create_obuffer = subprocess.run(
                 ["swaymsg", "-t", "get_outputs", "-r"],
-                check=True,
+                stdout=open(obuffer, "w"),
             )
-            if create_obuffer.returncode == 0:
-                with open(obuffer, "w") as f:
-                    json.dump(create_obuffer.stdout, f)
-                print("obuffer file created")
-            elif create_obuffer.returncode != 0:
-                buffer_error = create_obuffer.stderr
-                print("Error trying to get outputs from swaymsg. Is swaymsg installed?")
-                print("Writing error to log file")
-                with open(paths[3] / "ruwfs.log", "a") as f:
-                    f.write(buffer_error)
-                print("Exiting. . .")
-                exit(1)
+            # if create_obuffer.returncode == 0:
+            #     # with open(obuffer, "w") as f:
+            #     #     json.dump(create_obuffer.stdout, f)
+            #     print("obuffer file created")
+            # else:
+            #     buffer_error = create_obuffer.stderr
+            #     print("Error trying to get outputs from swaymsg. Is swaymsg installed?")
+            #     print("Writing error to log file")
+            #     with open(paths[3] / "ruwfs.log", "a") as f:
+            #         f.write(buffer_error)
+            #     print("Exiting. . .")
+            #     exit(1)
         else:
             print("obuffer exists and is not empty")
 
