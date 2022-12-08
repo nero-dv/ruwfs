@@ -35,7 +35,12 @@ git clone https://github.com/nero-dv/ruwfs "${RUWFS_DIR}" && cd "${RUWFS_DIR}"
 chown -R $USER:$USER $RUWFS_DIR
 
 if [ -f $HOME/.config/sway/config ]; then
-    echo "Sway config file found. Removing current bg configuration and adding ruwfs to config file."
+    echo "Sway config file found. Removing current bg configuration and directory for custom configuration."
     sed -i '/output \* bg/d' $HOME/.config/sway/config
-    echo "exec_always --no-startup-id python ~/.ruwfs/src/ruwfs.py" >> $HOME/.config/sway/config
+    mkdir -p $HOME/.config/sway/backgrounds
+    echo "include $HOME/.config/sway/backgrounds/*.conf" >> $HOME/.config/sway/config
+    echo "exec_always --no-startup-id python ~/.ruwfs/src/ruwfs.py" >> $HOME/.config/sway/config/backgrounds/ruwfs.conf
+    echo
+    echo "Background configuration added to Sway config file."
+    echo "Reload your config file to start using RUWFS."
 fi
