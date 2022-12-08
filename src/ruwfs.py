@@ -138,7 +138,7 @@ def main():
             subprocess.call(
                 ["swaymsg", "output", output_list[idx], "bg", image_list[idx], "fill"]
             )
-        time.sleep(10)
+        time.sleep(1800)
         set_backgrounds()
 
     set_backgrounds()
